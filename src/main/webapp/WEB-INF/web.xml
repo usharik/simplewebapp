@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <display-name>Archetype Created Web Application</display-name>
+
+    <context-param>
+        <param-name>jdbcConnectionString</param-name>
+        <param-value>jdbc:mysql://localhost:3306/javaee_test_db?createDatabaseIfNotExist=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</param-value>
+    </context-param>
+    <context-param>
+        <param-name>username</param-name>
+        <param-value>root</param-value>
+    </context-param>
+    <context-param>
+        <param-name>password</param-name>
+        <param-value>root</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>FirstServlet</servlet-name>
+        <servlet-class>ru.geekbrains.servlets.FirstServlet</servlet-class>
+    </servlet>
+
+    <!--
+     <url-pattern></url-pattern> - маппинг на контекст приложения http://localhost:8080/simple-webapp
+     <url-pattern>/</url-pattern> - прекрывает сервлет по умолчанию (не желательно)
+     <url-pattern>/something/*</url-pattern> - все ссылки, которые начинаются с http://localhost:8080/simple-webapp/something
+     <url-pattern>/something/*.html</url-pattern> все ссылки с расширением html
+
+     !!! ВНИМАНИЕ !!!
+      <url-pattern></something*<url-pattern> - это не маска для URL!!! Сервлет будет привязан к ссылке http://localhost:8080/simple-webapp/firstservlet*
+    -->
+    <servlet-mapping>
+        <servlet-name>FirstServlet</servlet-name>
+        <url-pattern>/firstservlet/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>
