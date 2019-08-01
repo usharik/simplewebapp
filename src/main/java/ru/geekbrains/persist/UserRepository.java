@@ -22,6 +22,16 @@ public class UserRepository {
         }
     }
 
+    public void save(User user) throws SQLException {
+        try (PreparedStatement stmt = conn.prepareStatement(
+                "update users set login = ?, password = ? where id = ?;")) {
+            stmt.setString(1, user.getLogin());
+            stmt.setString(2, user.getPassword());
+            stmt.setInt(3, user.getId());
+            stmt.execute();
+        }
+    }
+
     public User findByLogin(String login) throws SQLException {
         try (PreparedStatement stmt = conn.prepareStatement(
                 "select id, login, password from users where login = ?")) {
@@ -33,6 +43,19 @@ public class UserRepository {
             }
         }
         return new User(-1, "", "");
+    }
+
+    public User findById(int id) throws SQLException {
+        try (PreparedStatement stmt = conn.prepareStatement(
+                "select id, login, password from users where id = ?")) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new User(rs.getInt(1), rs.getString(2), rs.getString(3));
+            }
+        }
+        return null;
     }
 
     public List<User> getAllUsers() throws SQLException {
