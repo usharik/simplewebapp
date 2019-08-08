@@ -23,11 +23,23 @@ public class UserRepository {
     }
 
     public void save(User user) throws SQLException {
+        if (existsById(user.getId())) {
+            try (PreparedStatement stmt = conn.prepareStatement(
+                    "update users set login = ?, password = ? where id = ?;")) {
+                stmt.setString(1, user.getLogin());
+                stmt.setString(2, user.getPassword());
+                stmt.setInt(3, user.getId());
+                stmt.execute();
+            }
+            return;
+        }
+        insert(user);
+    }
+
+    public void delete(User user) throws SQLException {
         try (PreparedStatement stmt = conn.prepareStatement(
-                "update users set login = ?, password = ? where id = ?;")) {
-            stmt.setString(1, user.getLogin());
-            stmt.setString(2, user.getPassword());
-            stmt.setInt(3, user.getId());
+                "delete from users where id = ?;")) {
+            stmt.setInt(1, user.getId());
             stmt.execute();
         }
     }
@@ -56,6 +68,15 @@ public class UserRepository {
             }
         }
         return null;
+    }
+
+    public boolean existsById(int id) throws SQLException {
+        try (PreparedStatement stmt = conn.prepareStatement(
+                "select 1 from users where id = ? limit 1")) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        }
     }
 
     public List<User> getAllUsers() throws SQLException {
