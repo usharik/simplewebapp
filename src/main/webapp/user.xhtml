@@ -1,0 +1,37 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:include src="WEB-INF/jsf.fragments/head.xhtml">
+    <ui:param name="title" value="User list" />
+</ui:include>
+
+<h:body>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">Users list</a>
+    </nav>
+
+    <div class="container">
+        <h:form id="userForm">
+            <div class="form-group">
+                <h:outputLabel value="User name" for="exampleInputUsername" />
+                <h:inputText styleClass="form-control" id="exampleInputUsername" placeholder="Enter username"
+                       value="#{usersBean.user.login}" required="true" requiredMessage="Login is required" >
+                    <f:ajax event="blur" render="loginValidationError" />
+                </h:inputText>
+
+                <h:message id="loginValidationError" for="exampleInputUsername" style="color: red" />
+            </div>
+            <div class="form-group">
+                <h:outputLabel value="Password" for="exampleInputPassword" />
+                <h:inputSecret styleClass="form-control" id="exampleInputPassword" placeholder="Password"
+                       value="#{usersBean.user.password}" />
+            </div>
+            <h:commandButton value="Submit" styleClass="btn btn-primary" action="#{usersBean.saveUser()}" />
+        </h:form>
+    </div>
+
+</h:body>
+
+</html>
