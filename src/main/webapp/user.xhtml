@@ -1,0 +1,44 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+
+    <title>Users list</title>
+</h:head>
+
+<h:body>
+
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">User edit form</a>
+    </nav>
+
+    <div class="container">
+
+        <h:form>
+            <div class="form-group">
+                <h:outputLabel for="exampleInputUsername">User name</h:outputLabel>
+                <h:inputText class="form-control" id="exampleInputUsername" placeholder="Enter username"
+                             value="#{usersBean.user.login}"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="exampleInputPassword">Password</h:outputLabel>
+                <h:inputSecret class="form-control" id="exampleInputPassword" placeholder="Password"
+                               name="password" value="#{usersBean.user.password}"/>
+            </div>
+            <h:commandButton value="Save" action="#{usersBean.saveUser()}" />
+        </h:form>
+
+    </div>
+
+</h:body>
+
+</html>

@@ -20,6 +20,17 @@
     </context-param>
 
     <servlet>
+        <servlet-name>faces-servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>faces-servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>FirstServlet</servlet-name>
         <servlet-class>ru.geekbrains.servlets.FirstServlet</servlet-class>
     </servlet>
