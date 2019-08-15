@@ -1,13 +1,23 @@
 package ru.geekbrains.persist;
 
-public class User {
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+@Table(name = "users")
+public class User implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "login", unique = true, nullable = false)
     private String login;
+
+    @Column(name = "password", nullable = false)
     private String password;
 
     public User() {
-        this.id = -1;
     }
 
     public User(int id, String login, String password) {

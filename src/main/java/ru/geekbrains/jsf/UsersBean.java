@@ -7,7 +7,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
 
 @SessionScoped
@@ -27,7 +26,7 @@ public class UsersBean implements Serializable {
         this.user = user;
     }
 
-    public List<User> getAllUsers() throws SQLException {
+    public List<User> getAllUsers() {
         return userRepository.getAllUsers();
     }
 
@@ -36,7 +35,7 @@ public class UsersBean implements Serializable {
         return "/user.xhtml?faces-redirect=true";
     }
 
-    public void deleteUser(User user) throws SQLException {
+    public void deleteUser(User user) {
         userRepository.delete(user);
     }
 
@@ -45,8 +44,8 @@ public class UsersBean implements Serializable {
         return "/user.xhtml?faces-redirect=true";
     }
 
-    public String saveUser() throws SQLException {
-        userRepository.save(this.user);
+    public String saveUser() {
+        userRepository.merge(this.user);
         return "/users.xhtml?faces-redirect=true";
     }
 }
