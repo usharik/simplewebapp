@@ -28,6 +28,11 @@
                 <h:inputSecret styleClass="form-control" id="exampleInputPassword" placeholder="Password"
                        value="#{usersBean.user.password}" />
             </div>
+            <div class="form-group">
+                <h:selectManyCheckbox value="#{usersBean.user.roles}" layout="pageDirection">
+                    <f:selectItems value="#{usersBean.allRoles}" />
+                </h:selectManyCheckbox>
+            </div>
             <h:commandButton value="Submit" styleClass="btn btn-primary" action="#{usersBean.saveUser()}" />
         </h:form>
     </div>

@@ -1,8 +1,6 @@
 package ru.geekbrains.jsf;
 
-import ru.geekbrains.persist.User;
-import ru.geekbrains.persist.UserRepository;
-
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,38 +12,52 @@ import java.util.List;
 public class UsersBean implements Serializable {
 
     @Inject
-    private UserRepository userRepository;
+    private UserService userService;
 
-    private User user;
+    @Inject
+    private RoleService roleRepository;
 
-    public User getUser() {
+    private UserRepr user;
+
+    private List<RoleRepr> roles;
+
+    @PostConstruct
+    public void init() {
+        this.roles = roleRepository.getAllRoles();
+    }
+
+    public UserRepr getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserRepr user) {
         this.user = user;
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
+    public List<UserRepr> getAllUsers() {
+        return userService.getAllUsers();
     }
 
-    public String editUser(User user) {
+    public String editUser(UserRepr user) {
         this.user = user;
         return "/user.xhtml?faces-redirect=true";
     }
 
-    public void deleteUser(User user) {
-        userRepository.delete(user);
+    public void deleteUser(UserRepr user) {
+        userService.delete(user.getId());
     }
 
     public String createUser() {
-        this.user = new User();
+        this.user = new UserRepr();
         return "/user.xhtml?faces-redirect=true";
     }
 
     public String saveUser() {
-        userRepository.merge(this.user);
+        userService.merge(this.user);
         return "/users.xhtml?faces-redirect=true";
+    }
+
+    public List<RoleRepr> getAllRoles() {
+        return roles;
     }
 }
