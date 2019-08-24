@@ -2,16 +2,17 @@ package ru.geekbrains.jsf;
 
 import ru.geekbrains.persist.RoleRepository;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.transaction.Transactional;
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ApplicationScoped
-@Named
-public class RoleService {
+@Stateless
+@TransactionManagement(javax.ejb.TransactionManagementType.BEAN)
+public class RoleService implements Serializable {
 
     @Inject
     private RoleRepository roleRepository;

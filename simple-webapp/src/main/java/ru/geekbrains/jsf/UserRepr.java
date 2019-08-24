@@ -2,10 +2,11 @@ package ru.geekbrains.jsf;
 
 import ru.geekbrains.persist.User;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserRepr {
+public class UserRepr implements Serializable {
 
     private int id;
 

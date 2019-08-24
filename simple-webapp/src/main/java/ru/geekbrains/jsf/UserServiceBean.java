@@ -3,23 +3,21 @@ package ru.geekbrains.jsf;
 import ru.geekbrains.persist.User;
 import ru.geekbrains.persist.UserRepository;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import javax.ejb.*;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ApplicationScoped
-@Named
-public class UserService {
+@Stateless
+@TransactionManagement(javax.ejb.TransactionManagementType.BEAN)
+public class UserServiceBean implements UserServiceRemoteBean, UserServiceLocalBean {
 
-    @Inject
+    @EJB
     private UserRepository userRepository;
 
     @Transactional
-    public User merge(UserRepr user) {
-        return userRepository.merge(new User(user));
+    public void merge(UserRepr user) {
+        userRepository.merge(new User(user));
     }
 
     @Transactional
@@ -37,6 +35,7 @@ public class UserService {
         return userRepository.findById(id) != null;
     }
 
+    @Override
     @Transactional
     public List<UserRepr> getAllUsers() {
         return userRepository.getAllUsers().stream()

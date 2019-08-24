@@ -3,8 +3,8 @@ package ru.geekbrains.persist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -12,11 +12,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.io.Serializable;
 import java.util.List;
 
-@ApplicationScoped
-@Named
-public class UserRepository {
+@Stateless
+//@TransactionManagement(javax.ejb.TransactionManagementType.BEAN)
+public class UserRepository implements Serializable {
 
     private Logger logger = LoggerFactory.getLogger(UserRepository.class);
 
@@ -26,12 +27,12 @@ public class UserRepository {
     public UserRepository() {
     }
 
-    @Transactional
+    //@Transactional
     public User merge(User user) {
         return em.merge(user);
     }
 
-    @Transactional
+    //@Transactional
     public void delete(int id) {
         logger.info("Deleting user");
 
@@ -46,17 +47,17 @@ public class UserRepository {
         }
     }
 
-    @Transactional
+    //@Transactional
     public User findById(int id) {
         return em.find(User.class, id);
     }
 
-    @Transactional
+    //@Transactional
     public boolean existsById(int id) {
         return findById(id) != null;
     }
 
-    @Transactional
+    //@Transactional
     public List<User> getAllUsers() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<User> query = cb.createQuery(User.class);

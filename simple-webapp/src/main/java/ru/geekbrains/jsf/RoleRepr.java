@@ -2,9 +2,10 @@ package ru.geekbrains.jsf;
 
 import ru.geekbrains.persist.Role;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class RoleRepr {
+public class RoleRepr implements Serializable {
 
     private long id;
 

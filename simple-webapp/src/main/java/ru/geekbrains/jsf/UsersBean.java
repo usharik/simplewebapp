@@ -1,6 +1,7 @@
 package ru.geekbrains.jsf;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,8 +12,8 @@ import java.util.List;
 @Named
 public class UsersBean implements Serializable {
 
-    @Inject
-    private UserService userService;
+    @EJB
+    private UserServiceLocalBean userService;
 
     @Inject
     private RoleService roleRepository;
