@@ -12,6 +12,7 @@
     <modules>
         <module>simple-webapp</module>
         <module>ejb-client</module>
+        <module>soap-client</module>
     </modules>
 
 </project>

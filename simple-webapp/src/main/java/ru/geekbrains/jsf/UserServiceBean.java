@@ -2,15 +2,18 @@ package ru.geekbrains.jsf;
 
 import ru.geekbrains.persist.User;
 import ru.geekbrains.persist.UserRepository;
+import ru.geekbrains.rest.UserServiceRest;
 
 import javax.ejb.*;
+import javax.jws.WebService;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
+@WebService(endpointInterface = "ru.geekbrains.jsf.UserServiceWs", serviceName = "UserService")
 @TransactionManagement(javax.ejb.TransactionManagementType.BEAN)
-public class UserServiceBean implements UserServiceRemoteBean, UserServiceLocalBean {
+public class UserServiceBean implements UserServiceRemoteBean, UserServiceLocalBean, UserServiceRest {
 
     @EJB
     private UserRepository userRepository;

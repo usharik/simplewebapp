@@ -1,0 +1,7 @@
+GET http://localhost:8080/simple-webapp/api/users/all
+
+###
+
+GET http://localhost:8080/simple-webapp/api/users/10/id
+
+###
