@@ -16,7 +16,6 @@ public class EjbClient {
         UserServiceRemoteBean usr = (UserServiceRemoteBean) context.lookup("ejb:/simple-webapp//UserServiceBean!ru.geekbrains.jsf.UserServiceRemoteBean");
         usr.getAllUsers()
                 .forEach(u -> System.out.printf("%d\t%s%n", u.getId(), u.getLogin()));
-
     }
 
     public static Context createInitialContext() throws IOException, NamingException {

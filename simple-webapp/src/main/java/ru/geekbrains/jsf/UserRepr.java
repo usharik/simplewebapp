@@ -58,4 +58,12 @@ public class UserRepr implements Serializable {
     public void setRoles(Set<RoleRepr> roles) {
         this.roles = roles;
     }
+
+    @Override
+    public String toString() {
+        return "UserRepr{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                '}';
+    }
 }

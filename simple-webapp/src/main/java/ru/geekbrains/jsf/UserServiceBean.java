@@ -20,7 +20,8 @@ public class UserServiceBean implements UserServiceRemoteBean, UserServiceLocalB
 
     @Transactional
     public void merge(UserRepr user) {
-        userRepository.merge(new User(user));
+        User merged = userRepository.merge(new User(user));
+        user.setId(merged.getId());
     }
 
     @Transactional

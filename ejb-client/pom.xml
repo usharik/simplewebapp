@@ -7,7 +7,6 @@
     <groupId>ru.geekbrains</groupId>
     <artifactId>ejb-client</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,6 +19,13 @@
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-ejb-client-bom</artifactId>
             <version>17.0.1.Final</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-jms-client-bom</artifactId>
+            <version>15.0.1.Final</version>
             <type>pom</type>
         </dependency>
 
@@ -46,7 +52,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.2.1</version>
                 <configuration>
-                    <mainClass>ru.geekbrains.EjbClient</mainClass>
+                    <mainClass>ru.geekbrains.JmsClient</mainClass>
                 </configuration>
             </plugin>
         </plugins>

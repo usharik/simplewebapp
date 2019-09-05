@@ -1,10 +1,14 @@
 package ru.geekbrains.jsf;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
+import javax.jms.JMSContext;
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,6 +21,12 @@ public class UsersBean implements Serializable {
 
     @Inject
     private RoleService roleRepository;
+
+    @Resource(name = "DefaultJMSConnectionFactory")
+    private ConnectionFactory connectionFactory;
+
+    @Resource(name = "java:jboss/exported/topic/NewUserTopic")
+    private Destination topic;
 
     private UserRepr user;
 
@@ -54,7 +64,14 @@ public class UsersBean implements Serializable {
     }
 
     public String saveUser() {
+        int id = this.user.getId();
         userService.merge(this.user);
+        if (id == 0) {
+            try (JMSContext context = connectionFactory.createContext()) {
+                context.createProducer()
+                        .send(topic, this.user);
+            }
+        }
         return "/users.xhtml?faces-redirect=true";
     }
 
